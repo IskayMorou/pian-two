@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Git + VS Code – für Designer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Recursive:CASL,MONO,slnt,wght@0..1,0..1,-15..0,300..800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header>
+  <a class="back-link" href="git-erklaerung.html">← Zurück zu Teil 1: Git Grundlagen</a>
+  <span class="tag">Git + VS Code · Teil 2</span>
+  <h1>Git mit <em>Augen</em> –<br>VS Code als visuelle Oberfläche</h1>
+  <p class="intro">Du hast Git im Terminal kennengelernt. Jetzt siehst du dasselbe nochmal – aber mit einer grafischen Oberfläche. Kein Befehl, kein Problem.</p>
+</header>
+
+<nav>
+  <a href="#code-punkt">code .</a>
+  <a href="#source-control">Source Control</a>
+  <a href="#vergleich">Terminal vs. VS Code</a>
+  <a href="#historie">git log</a>
+  <a href="#publish">Publish Branch</a>
+  <a href="#naechster-schritt">Nächster Schritt</a>
+</nav>
+
+<main>
+
+  <!-- SEKTION 1 -->
+  <section id="code-punkt">
+    <span class="section-number">01 / Befehl</span>
+    <h2><em>code .</em> –<br>VS Code direkt öffnen</h2>
+
+    <p>Mit diesem kleinen Befehl im Terminal öffnest du VS Code direkt in dem Ordner, in dem du gerade arbeitest:</p>
+
+    <div class="code-block">
+      <span class="prompt">% </span><span class="command">code .</span><br>
+      <span class="comment"># Der Punkt = "in diesem Ordner hier"</span>
+    </div>
+
+    <p>VS Code öffnet sich und kennt sofort dein Projekt – alle Dateien, und vor allem: es verbindet sich automatisch mit Git. Kein Setup nötig, <strong>VS Code spricht Git von Haus aus</strong>.</p>
+
+    <div class="highlight-box">
+      <span class="box-label">Warum ist das relevant für deinen Workflow?</span>
+      <p>Später, wenn du mit Claude + MCP arbeitest, wird Claude Code ebenfalls direkt in VS Code integriert sein. Du wirst denselben Editor nutzen – nur mit KI-Unterstützung drin.</p>
+    </div>
+  </section>
+
+  <!-- SEKTION 2 -->
+  <section id="source-control">
+    <span class="section-number">02 / Interface</span>
+    <h2>Source Control –<br><em>Git wird sichtbar</em></h2>
+
+    <p>Das Git-Icon in der linken Seitenleiste ist dein visuelles Terminal. Die grüne Zahl zeigt dir auf einen Blick: <strong>wie viele Dateien haben ungespeicherte Änderungen.</strong></p>
+
+    <div class="vscode-mockup">
+      <div class="vscode-titlebar">
+        <div class="vscode-dot red"></div>
+        <div class="vscode-dot yellow"></div>
+        <div class="vscode-dot green"></div>
+        <span class="vscode-title">pian-one — VS Code</span>
+      </div>
+      <div class="vscode-body">
+        <div class="vscode-sidebar">
+          <div class="vscode-icon">📄</div>
+          <div class="vscode-icon">🔍</div>
+          <div class="vscode-icon active">
+            ⑂
+            <div class="vscode-badge">1</div>
+          </div>
+          <div class="vscode-icon">🐛</div>
+        </div>
+        <div class="vscode-panel">
+          <div class="vscode-panel-title">Source Control</div>
+          <div class="vscode-commit-field">Message (Commit-Nachricht hier eingeben...)</div>
+          <div class="vscode-btn">✓ Commit</div>
+          <br>
+          <div class="vscode-section-label">▾ Changes <span class="vscode-section-count">1</span></div>
+          <div class="vscode-file">
+            <span class="vscode-file-icon">ℹ</span>
+            <span class="vscode-file-name">README.md</span>
+            <span class="vscode-file-badge">M</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p>Das <strong>"M"</strong> neben der Datei steht für <strong>Modified</strong> – verändert. VS Code zeigt dir den Status jeder Datei direkt an. Andere Buchstaben die du sehen wirst:</p>
+
+    <div class="code-block">
+      <span class="highlight">U</span> = Untracked   <span class="comment">→ neue Datei, Git kennt sie noch nicht</span><br>
+      <span class="highlight">M</span> = Modified    <span class="comment">→ bekannte Datei, wurde verändert</span><br>
+      <span class="highlight">A</span> = Added       <span class="comment">→ gestaged, bereit zum Commit</span><br>
+      <span class="highlight">D</span> = Deleted     <span class="comment">→ Datei wurde gelöscht</span>
+    </div>
+  </section>
+
+  <!-- SEKTION 3 -->
+  <section id="vergleich">
+    <span class="section-number">03 / Vergleich</span>
+    <h2>Terminal vs. VS Code –<br><em>dieselbe Sprache, zwei Dialekte</em></h2>
+
+    <p>Alles was du im Terminal tippst, kannst du in VS Code mit Klicks machen. Es ist <strong>kein Unterschied für Git</strong> – das Ergebnis ist identisch. Du wählst was sich für dich besser anfühlt.</p>
+
+    <div class="comparison">
+      <div class="comparison-header terminal">⌨ Terminal</div>
+      <div class="comparison-header vscode">🖱 VS Code</div>
+
+      <div class="comparison-cell">
+        <span class="cmd">git status</span>
+        <span>Zeigt geänderte Dateien</span>
+      </div>
+      <div class="comparison-cell">
+        <span class="action">Source Control öffnen</span>
+        <span>Siehst alle Änderungen visuell</span>
+      </div>
+
+      <div class="comparison-cell">
+        <span class="cmd">git add README.md</span>
+        <span>Datei stagen</span>
+      </div>
+      <div class="comparison-cell">
+        <span class="action">+ Button neben der Datei klicken</span>
+        <span>Datei in den Wartebereich legen</span>
+      </div>
+
+      <div class="comparison-cell">
+        <span class="cmd">git commit -m "Nachricht"</span>
+        <span>Commit erstellen</span>
+      </div>
+      <div class="comparison-cell">
+        <span class="action">Nachricht eintippen → Commit klicken</span>
+        <span>Commit erstellen</span>
+      </div>
+
+      <div class="comparison-cell">
+        <span class="cmd">git log --oneline</span>
+        <span>Historie anzeigen</span>
+      </div>
+      <div class="comparison-cell">
+        <span class="action">Timeline in der Seitenleiste</span>
+        <span>Alle Commits visuell sehen</span>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <span class="box-label">Empfehlung</span>
+      <p>Lern beides. Das Terminal gibt dir ein tieferes Verständnis <em>was</em> Git tut. VS Code ist schneller im Alltag. Profis wechseln ständig zwischen beiden.</p>
+    </div>
+  </section>
+
+  <!-- SEKTION 4 -->
+  <section id="historie">
+    <span class="section-number">04 / Befehl</span>
+    <h2><em>git log</em> –<br>Der Zeitstrahl deines Projekts</h2>
+
+    <p>Mit diesem Befehl siehst du die gesamte Geschichte deines Projekts:</p>
+
+    <div class="code-block">
+      <span class="prompt">% </span><span class="command">git log --oneline</span><br><br>
+      <span class="highlight">dae07b1</span> <span class="output">(HEAD -> main) README Aktualisiert</span><br>
+      <span class="highlight">3c8b826</span> <span class="output">Erster Commit</span>
+    </div>
+
+    <p>Das <code>--oneline</code> macht die Ausgabe kompakt – eine Zeile pro Commit. Ohne es bekommst du auch Datum, Author und die volle Commit-ID.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot filled"></div>
+        <div class="timeline-id">dae07b1 · HEAD → main</div>
+        <div class="timeline-msg">README Aktualisiert</div>
+        <div class="timeline-meta">Aktuellster Stand · Du bist hier</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-id">3c8b826</div>
+        <div class="timeline-msg">Erster Commit</div>
+        <div class="timeline-meta">Der Anfang des Projekts · root-commit</div>
+      </div>
+    </div>
+
+    <p><strong>HEAD</strong> ist ein Zeiger – er zeigt immer auf den Commit, auf dem du gerade arbeitest. In der Regel ist das der neueste. Aber du könntest HEAD auch auf einen älteren Commit zeigen lassen, um in der Zeit zurückzureisen.</p>
+  </section>
+
+  <!-- SEKTION 5 -->
+  <section id="publish">
+    <span class="section-number">05 / Nächster Horizont</span>
+    <h2><em>Publish Branch</em> –<br>Der Knopf der auf GitHub wartet</h2>
+
+    <p>Nachdem du deinen Commit gemacht hast, hat VS Code dir diesen Button gezeigt:</p>
+
+    <div class="code-block">
+      <span class="output">↑ Publish Branch</span><br>
+      <span class="comment"># "Dein lokales Projekt auf GitHub hochladen"</span>
+    </div>
+
+    <p>Das ist die <strong>Brücke zwischen lokal und Cloud</strong>. Alles was du bis jetzt gemacht hast, lebt nur auf deinem Mac. Mit "Publish Branch" landet es auf GitHub – gesichert, geteilt, zugänglich von überall.</p>
+
+    <p>Und genau das ist der nächste Schritt. Wenn das passiert ist, öffnet sich der Weg zu Claude + MCP + Figma.</p>
+
+    <div class="workflow-preview">
+      <span class="wf-tag done">✓ Git lokal</span>
+      <span class="wf-sep">→</span>
+      <span class="wf-tag done">✓ VS Code</span>
+      <span class="wf-sep">→</span>
+      <span class="wf-tag next">→ GitHub</span>
+      <span class="wf-sep">→</span>
+      <span class="wf-tag future">Claude + MCP</span>
+      <span class="wf-sep">→</span>
+      <span class="wf-tag future">Figma</span>
+    </div>
+  </section>
+
+  <!-- NEXT STEP -->
+  <section id="naechster-schritt">
+    <span class="section-number">06 / Zusammenfassung</span>
+    <h2>Was du heute<br><em>gelernt und gemacht hast</em></h2>
+
+    <p>Ohne es vielleicht gemerkt zu haben, hast du heute einen vollständigen professionellen Workflow durchlaufen:</p>
+
+    <div class="code-block">
+      <span class="output">✓</span> git init          <span class="comment">→ Projekt initialisiert</span><br>
+      <span class="output">✓</span> touch README.md   <span class="comment">→ erste Datei erstellt</span><br>
+      <span class="output">✓</span> git add           <span class="comment">→ Datei gestaged</span><br>
+      <span class="output">✓</span> git commit        <span class="comment">→ erster Commit</span><br>
+      <span class="output">✓</span> VS Code geöffnet  <span class="comment">→ visuell gearbeitet</span><br>
+      <span class="output">✓</span> zweiter Commit    <span class="comment">→ in VS Code</span><br>
+      <span class="output">✓</span> git log           <span class="comment">→ Historie gelesen</span>
+    </div>
+
+    <div class="next-step">
+      <span class="next-label">Teil 3 kommt als nächstes</span>
+      <h3>GitHub verbinden</h3>
+      <p>Dein lokales Projekt in die Cloud bringen – und den Grundstein für Claude + MCP + Figma legen.</p>
+      <a href="#">→ Weiter zu Teil 3</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>Git + VS Code · Teil 2 von ?</p>
+  <a href="git-erklaerung.html">← Teil 1: Git Grundlagen</a>
+</footer>
+
+</body>
+</html>

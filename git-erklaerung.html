@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Git verstehen – für Designer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Recursive:CASL,MONO,slnt,wght@0..1,0..1,-15..0,300..800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header>
+  <span class="tag">Git für Designer · Grundlagen</span>
+  <h1>Was passiert eigentlich<br><em>hinter den Kulissen?</em></h1>
+  <p class="intro">Du hast gerade deine ersten Git-Befehle ausgeführt. Hier ist eine ehrliche, visuelle Erklärung was das alles bedeutet – ohne unnötiges Entwickler-Kauderwelsch.</p>
+</header>
+
+<nav>
+  <a href="#was-ist-git">Was ist Git?</a>
+  <a href="#init">git init</a>
+  <a href="#status">git status</a>
+  <a href="#add">git add</a>
+  <a href="#commit">git commit</a>
+  <a href="#zusammenfassung">Zusammenfassung</a>
+  <a href="#vision">Dein Ziel</a>
+</nav>
+
+<main>
+
+  <!-- SEKTION 1 -->
+  <section id="was-ist-git">
+    <span class="section-number">01 / Konzept</span>
+    <h2>Git ist wie ein<br><em>sehr geduldiger Buchhalter</em></h2>
+
+    <p>Stell dir vor, du arbeitest an einem UI-Design in Figma. Du machst täglich Änderungen – mal gefällt dir ein Layout, mal verwirfst du es wieder. Irgendwann fragst du dich: <strong>Wie war das nochmal vor drei Wochen?</strong></p>
+
+    <p>Genau dafür ist Git gebaut. Es ist ein System, das jede Änderung in deinem Projekt <strong>aufzeichnet, benennt und dauerhaft speichert</strong> – aber nur dann, wenn du ihm sagst: "Diese Änderung ist wichtig, speichere sie."</p>
+
+    <div class="analogy">
+      <p class="analogy-label">Analogy</p>
+      <p>Git ist wie ein Notizbuch, in dem du zu bestimmten Momenten schreibst: "Stand heute, 14 Uhr – das Projekt sieht so aus." Du kannst jederzeit zu jedem dieser Momente zurückblättern.</p>
+    </div>
+
+    <p>Der wichtige Unterschied zu einer normalen "Speichern"-Funktion: Bei Git entscheidest <strong>du</strong> aktiv, wann ein Moment festgehalten wird und wie er heißt. Das macht es zu einem mächtigen Werkzeug – aber auch zu einem, das ein bisschen Gewöhnung braucht.</p>
+  </section>
+
+  <!-- SEKTION 2 -->
+  <section id="init">
+    <span class="section-number">02 / Befehl</span>
+    <h2><em>git init</em> –<br>Den Buchhalter einstellen</h2>
+
+    <p>Als du diesen Befehl ausgeführt hast:</p>
+
+    <div class="code-block">
+      <span class="prompt">% </span><span class="command">git init</span><br>
+      <span class="output">Initialized empty Git repository in /Users/iskay/Documents/pian-one/.git/</span>
+    </div>
+
+    <p>...hat Git einen <strong>unsichtbaren Ordner</strong> namens <code>.git</code> in deinem Projektordner erstellt. Dieser Ordner ist das Gehirn von Git – er speichert die gesamte Geschichte deines Projekts.</p>
+
+    <div class="highlight-box">
+      <span class="box-label">Wichtig zu wissen</span>
+      <p>Du siehst diesen <code>.git</code>-Ordner nicht im Finder, weil er versteckt ist (der Punkt am Anfang bedeutet "versteckt" auf Mac). Aber er ist da. Lösche ihn nie – sonst verlierst du die gesamte Git-Historie.</p>
+    </div>
+
+    <p><code>git init</code> machst du <strong>nur einmal pro Projekt</strong>. Ab diesem Moment ist Git für diesen Ordner zuständig.</p>
+  </section>
+
+  <!-- SEKTION 3 -->
+  <section id="status">
+    <span class="section-number">03 / Befehl</span>
+    <h2><em>git status</em> –<br>Den Überblick behalten</h2>
+
+    <p>Dieser Befehl ist dein bester Freund. Er zeigt dir <strong>jederzeit den aktuellen Zustand</strong> deines Projekts aus Git's Perspektive. Du kannst ihn so oft ausführen wie du willst – er verändert nichts, er schaut nur.</p>
+
+    <div class="code-block">
+      <span class="prompt">% </span><span class="command">git status</span><br><br>
+      <span class="output">On branch main</span><br>
+      <span class="comment"># Du bist auf dem "Hauptstrang" deiner Arbeit</span><br><br>
+      <span class="output">No commits yet</span><br>
+      <span class="comment"># Noch nichts dauerhaft gespeichert</span><br><br>
+      <span class="output">Untracked files:</span><br>
+      <span class="output">  README.md</span><br>
+      <span class="comment"># Diese Datei existiert, aber Git ignoriert sie noch</span>
+    </div>
+
+    <p>Das Wort <strong>"Untracked"</strong> bedeutet: Git sieht die Datei, aber es beobachtet sie nicht. Es ist als würdest du einen Assistenten einstellen, ihm aber noch keine Aufgaben geben.</p>
+
+    <div class="highlight-box">
+      <span class="box-label">Merke dir</span>
+      <p>Führe <code>git status</code> regelmäßig aus – immer wenn du nicht sicher bist, wo du stehst. Es ist dein Kompass.</p>
+    </div>
+  </section>
+
+  <!-- SEKTION 4 -->
+  <section id="add">
+    <span class="section-number">04 / Befehl</span>
+    <h2><em>git add</em> –<br>Auswählen was gespeichert wird</h2>
+
+    <p>Hier wird es interessant. Bei Git speicherst du nicht einfach alles auf einmal – du wählst <strong>gezielt aus</strong>, welche Änderungen im nächsten "Foto" (Commit) enthalten sein sollen.</p>
+
+    <div class="analogy">
+      <p class="analogy-label">Analogy</p>
+      <p>Stell dir vor, du fotografierst dein Projekt für ein Portfolio. Bevor du auf "Auslösen" drückst, arrangierst du was im Bild sein soll. git add ist das Arrangieren – git commit ist der Klick auf den Auslöser.</p>
+    </div>
+
+    <div class="code-block">
+      <span class="prompt">% </span><span class="command">git add README.md</span><br>
+      <span class="comment"># Nur diese eine Datei wird vorbereitet</span><br><br>
+      <span class="prompt">% </span><span class="command">git add .</span><br>
+      <span class="comment"># Der Punkt bedeutet: ALLE geänderten Dateien vorbereiten</span>
+    </div>
+
+    <p>Nach dem <code>git add</code> ist die Datei in der sogenannten <strong>"Stage"</strong> – einer Art Wartebereich. Sie ist bereit, aber noch nicht dauerhaft gespeichert.</p>
+
+    <div class="code-block">
+      <span class="output">Changes to be committed:</span><br>
+      <span class="output">  new file: README.md</span><br>
+      <span class="comment"># "staged" = im Wartebereich, bereit zum Speichern</span>
+    </div>
+  </section>
+
+  <!-- SEKTION 5 -->
+  <section id="commit">
+    <span class="section-number">05 / Befehl</span>
+    <h2><em>git commit</em> –<br>Den Moment einfrieren</h2>
+
+    <p>Der Commit ist der wichtigste Moment in Git. Du speicherst den aktuellen Stand <strong>dauerhaft und unwiderruflich</strong> in der Geschichte deines Projekts. Mit einer Nachricht, die beschreibt was du getan hast.</p>
+
+    <div class="code-block">
+      <span class="prompt">% </span><span class="command">git commit -m "Erster Commit"</span><br><br>
+      <span class="output">[main (root-commit) 3c8b826] Erster Commit</span><br>
+      <span class="output"> 1 file changed, 0 insertions(+), 0 deletions(-)</span><br>
+      <span class="output"> create mode 100644 README.md</span>
+    </div>
+
+    <p>Was hat Git dir hier gesagt?</p>
+
+    <div class="cmd-explain">
+      <div class="cmd-explain-item">
+        <div class="cmd">main</div>
+        <div class="explanation">
+          <strong>Der aktuelle Branch (Strang)</strong>
+          <span>Du arbeitest auf dem Hauptstrang deines Projekts. Später kannst du parallele Stränge erstellen – z.B. um etwas auszuprobieren ohne den Hauptstand zu verändern.</span>
+        </div>
+      </div>
+      <div class="cmd-explain-item">
+        <div class="cmd">root-commit</div>
+        <div class="explanation">
+          <strong>Der allererste Commit</strong>
+          <span>Jedes Projekt hat genau einen "root-commit" – den Ursprung. Alle zukünftigen Commits bauen darauf auf.</span>
+        </div>
+      </div>
+      <div class="cmd-explain-item">
+        <div class="cmd">3c8b826</div>
+        <div class="explanation">
+          <strong>Die eindeutige ID des Commits</strong>
+          <span>Jeder Commit bekommt automatisch einen einzigartigen Code. Du kannst damit jederzeit zu genau diesem Moment zurückspringen.</span>
+        </div>
+      </div>
+      <div class="cmd-explain-item">
+        <div class="cmd">-m "..."</div>
+        <div class="explanation">
+          <strong>Die Commit-Nachricht</strong>
+          <span>Das "-m" steht für "message". Diese Nachricht ist für dich – schreib immer etwas Sinnvolles, das dir in 3 Monaten noch sagt, was du damals geändert hast.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEKTION 6: ZUSAMMENFASSUNG -->
+  <section id="zusammenfassung">
+    <span class="section-number">06 / Überblick</span>
+    <h2>Die drei Zustände –<br><em>der komplette Kreislauf</em></h2>
+
+    <p>Alles was du getan hast, lässt sich in einem einfachen Ablauf zusammenfassen. Jede Datei in deinem Projekt befindet sich immer in einem dieser drei Zustände:</p>
+
+    <div class="flow">
+      <div class="flow-step untracked">
+        <span class="step-label">Zustand 1</span>
+        <div class="step-title">Untracked</div>
+        <div class="step-desc">Datei existiert, Git ignoriert sie</div>
+      </div>
+      <div class="flow-arrow">
+        <span class="arrow-cmd">git add</span>
+        →
+      </div>
+      <div class="flow-step staged">
+        <span class="step-label">Zustand 2</span>
+        <div class="step-title">Staged</div>
+        <div class="step-desc">Im Wartebereich, bereit zum Speichern</div>
+      </div>
+      <div class="flow-arrow">
+        <span class="arrow-cmd">git commit</span>
+        →
+      </div>
+      <div class="flow-step committed">
+        <span class="step-label">Zustand 3</span>
+        <div class="step-title">Committed</div>
+        <div class="step-desc">Dauerhaft in der Geschichte gespeichert</div>
+      </div>
+    </div>
+
+    <p>Wenn du später neue Dateien erstellst oder bestehende änderst, beginnt der Kreislauf wieder von vorne. Das ist der grundlegende Rhythmus der Arbeit mit Git.</p>
+
+    <div class="highlight-box">
+      <span class="box-label">Gute Commit-Gewohnheiten</span>
+      <p>Committe oft und mit sinnvollen Nachrichten. Nicht "Änderungen" oder "Update" – sondern "Navigation Farbe auf Blau geändert" oder "Mobile Ansicht für Header fertig". Dein zukünftiges Ich wird es dir danken.</p>
+    </div>
+  </section>
+
+  <!-- SEKTION 7: VISION -->
+  <section id="vision">
+    <span class="section-number">07 / Ausblick</span>
+    <h2>Wo du hinwillst –<br><em>der große Plan</em></h2>
+
+    <div class="vision">
+      <h3>Dein Ziel: UI-Design mit Claude, MCP und GitHub</h3>
+      <p>Was du gerade lernst ist die Grundlage für einen modernen, KI-unterstützten Design-Workflow. Hier ist wie das aussehen wird:</p>
+
+      <div class="vision-flow">
+        <span class="vision-tag v1">Claude (KI)</span>
+        <span class="vision-sep">+</span>
+        <span class="vision-tag v2">MCP (Verbindung)</span>
+        <span class="vision-sep">+</span>
+        <span class="vision-tag v3">GitHub (Speicher)</span>
+        <span class="vision-sep">→</span>
+        <span class="vision-tag v4">Dein UI-Projekt</span>
+      </div>
+    </div>
+
+    <p>Git und GitHub sind dabei die <strong>Grundlage</strong> – das Fundament auf dem alles andere aufbaut. Wenn du Git verstehst, kannst du:</p>
+
+    <p>→ Mit Claude zusammenarbeiten, der deinen Code direkt in GitHub committen kann<br>
+    → Verschiedene Design-Varianten parallel testen (Branches)<br>
+    → Jederzeit zu einer älteren Version zurückgehen<br>
+    → Mit anderen Designern oder Entwicklern zusammenarbeiten</p>
+
+    <p>Du bist auf dem richtigen Weg. Die ersten Schritte sind immer die schwersten – ab jetzt wird es vertrauter.</p>
+  </section>
+
+</main>
+
+<footer>
+  <p>Git Grundlagen · Für Designer</p>
+  <a href="git-vscode.html" class="footer-link">Teil 2: Git + VS Code →</a>
+</footer>
+
+</body>
+</html>
