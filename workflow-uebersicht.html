@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Der Workflow – Claude + Figma + GitHub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Recursive:CASL,MONO,slnt,wght@0..1,0..1,-15..0,300..800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header>
+  <a class="back-link" href="git-branches.html">← Zurück zu Teil 4: Branches</a>
+  <span class="tag">Der Ziel-Workflow · Übersicht</span>
+  <h1>Du bist der<br>Dirigent –<br><em>Claude das Orchester</em></h1>
+  <p class="intro">Das ist der Workflow den du aufbaust. Jedes Konzept das du gelernt hast – Git, GitHub, Branches, Commits – ist ein Baustein für diesen Moment.</p>
+</header>
+
+<main>
+
+  <!-- SEKTION 1: DER WORKFLOW -->
+  <section>
+    <span class="section-number">01 / Der vollständige Workflow</span>
+    <h2>Von Figma<br><em>bis GitHub</em></h2>
+
+    <p>Das ist der komplette Kreislauf – Schritt für Schritt, Tool für Tool:</p>
+
+    <div class="workflow">
+      <div class="workflow-steps">
+
+        <div class="workflow-step">
+          <div class="step-marker">
+            <div class="step-circle you">Du</div>
+            <div class="step-line you"></div>
+          </div>
+          <div class="step-body">
+            <span class="step-tool you">Du · Figma</span>
+            <div class="step-title">Du designst eine UI Komponente</div>
+            <div class="step-desc">Ein Button, eine Navigation, eine Karte – was auch immer. Du arbeitest in Figma wie immer. Keine Änderung in deinem Design-Prozess.</div>
+          </div>
+        </div>
+
+        <div class="workflow-step">
+          <div class="step-marker">
+            <div class="step-circle mcp">MCP</div>
+            <div class="step-line mcp"></div>
+          </div>
+          <div class="step-body">
+            <span class="step-tool mcp">Model Context Protocol</span>
+            <div class="step-title">MCP verbindet Figma mit Claude</div>
+            <div class="step-desc">MCP ist die Brücke – ein Protokoll das Claude erlaubt direkt in Figma zu schauen. Claude sieht dein Design: Farben, Abstände, Schriften, Struktur.</div>
+            <div class="step-code">figma_get_design_context → Claude liest dein Design</div>
+          </div>
+        </div>
+
+        <div class="workflow-step">
+          <div class="step-marker">
+            <div class="step-circle claude">CC</div>
+            <div class="step-line claude"></div>
+          </div>
+          <div class="step-body">
+            <span class="step-tool claude">Claude Code</span>
+            <div class="step-title">Claude schreibt den Code</div>
+            <div class="step-desc">Claude Code liest das Figma Design und generiert HTML, CSS – oder React, Vue, was immer du brauchst. Pixel-genau, mit deinen echten Design-Tokens.</div>
+            <div class="step-code">"Convert this Figma frame to HTML and CSS"</div>
+          </div>
+        </div>
+
+        <div class="workflow-step">
+          <div class="step-marker">
+            <div class="step-circle claude">CC</div>
+            <div class="step-line github"></div>
+          </div>
+          <div class="step-body">
+            <span class="step-tool claude">Claude Code · Git</span>
+            <div class="step-title">Claude committet und pusht</div>
+            <div class="step-desc">Claude Code führt automatisch git add, git commit und git push aus – mit einer sinnvollen commit message. Du tippst keinen einzigen Git-Befehl.</div>
+            <div class="step-code">"Commit these changes and push to GitHub"</div>
+          </div>
+        </div>
+
+        <div class="workflow-step">
+          <div class="step-marker">
+            <div class="step-circle github">GH</div>
+            <div class="step-line github"></div>
+          </div>
+          <div class="step-body">
+            <span class="step-tool github">GitHub</span>
+            <div class="step-title">Code landet auf GitHub</div>
+            <div class="step-desc">Dein Code ist versioniert, gesichert, und zugänglich. Jede Änderung hat eine commit message, eine ID, einen Zeitstempel. Die vollständige Historie deines Projekts.</div>
+          </div>
+        </div>
+
+        <div class="workflow-step">
+          <div class="step-marker">
+            <div class="step-circle you">Du</div>
+            <div class="step-line you"></div>
+          </div>
+          <div class="step-body">
+            <span class="step-tool you">Du · Terminal</span>
+            <div class="step-title">Du pullst und prüfst</div>
+            <div class="step-desc">Mit einem einzigen Befehl holst du alle Änderungen auf deinen Mac. Du schaust, bewertest, und gibst Claude neue Anweisungen wenn nötig.</div>
+            <div class="step-code">git pull → alles lokal aktuell</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SEKTION 2: DIE TOOLS -->
+  <section>
+    <span class="section-number">02 / Die vier Tools</span>
+    <h2>Was jedes Tool<br><em>tut</em></h2>
+
+    <div class="tool-cards">
+      <div class="tool-card figma">
+        <span class="tc-name">Figma</span>
+        <div class="tc-title">Dein Design-Tool</div>
+        <div class="tc-desc">Wo du designst. Unverändert. Figma bleibt Figma – nur dass Claude jetzt direkt reinschauen kann.</div>
+      </div>
+      <div class="tool-card claude">
+        <span class="tc-name">Claude Code</span>
+        <div class="tc-title">Dein KI-Assistent</div>
+        <div class="tc-desc">Versteht dein Design, schreibt den Code, führt Git-Befehle aus. Du sprichst mit ihm auf Englisch wie mit einem Kollegen.</div>
+      </div>
+      <div class="tool-card mcp">
+        <span class="tc-name">MCP</span>
+        <div class="tc-title">Die Brücke</div>
+        <div class="tc-desc">Model Context Protocol – der Standard der Claude mit externen Tools wie Figma, GitHub, und anderen verbindet. Unsichtbar, aber entscheidend.</div>
+      </div>
+      <div class="tool-card github">
+        <span class="tc-name">GitHub</span>
+        <div class="tc-title">Dein Gedächtnis</div>
+        <div class="tc-desc">Speichert alles versioniert in der Cloud. Jede Änderung, jeder Commit, die gesamte Geschichte deines Projekts – sicher und zugänglich.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEKTION 3: DEINE ROLLE -->
+  <section>
+    <span class="section-number">03 / Die Rollen</span>
+    <h2>Du und Claude –<br><em>wer macht was</em></h2>
+
+    <div class="role-box">
+      <div class="role you">
+        <span class="role-label">Deine Rolle</span>
+        <div class="role-title">Der Dirigent</div>
+        <ul>
+          <li>UI in Figma designen</li>
+          <li>Claude Anweisungen geben</li>
+          <li>Ergebnisse prüfen und bewerten</li>
+          <li>Richtung und Vision bestimmen</li>
+          <li>Finale Entscheidungen treffen</li>
+        </ul>
+      </div>
+      <div class="role claude-r">
+        <span class="role-label">Claude's Rolle</span>
+        <div class="role-title">Das Orchester</div>
+        <ul>
+          <li>Figma Design lesen und verstehen</li>
+          <li>HTML / CSS Code schreiben</li>
+          <li>Git add, commit, push ausführen</li>
+          <li>Fehler erkennen und korrigieren</li>
+          <li>Mehrere Dateien gleichzeitig bearbeiten</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <span class="box-label">Das Wichtigste</span>
+      <p>Du musst kein Entwickler werden. Aber du musst verstehen <strong>was passiert</strong> – Git, GitHub, Branches, Commits. Das hast du bereits gelernt. Claude übernimmt die Ausführung, du behältst die Kontrolle.</p>
+    </div>
+  </section>
+
+  <!-- SEKTION 4: DOKUMENTE -->
+  <section>
+    <span class="section-number">04 / Deine Lernreise</span>
+    <h2>Alle Dokumente –<br><em>dein Fundament</em></h2>
+
+    <p>Diese Dokumente sind deine Referenz. Alles was du brauchst um diesen Workflow zu verstehen und anzuwenden:</p>
+
+    <div class="docs-nav">
+      <a class="doc-link" href="git-erklaerung.html">
+        <span class="dl-num">Teil 1</span>
+        <div class="dl-title">Git Grundlagen – was passiert hinter den Kulissen</div>
+      </a>
+      <a class="doc-link" href="git-vscode.html">
+        <span class="dl-num">Teil 2</span>
+        <div class="dl-title">Git + VS Code – die visuelle Oberfläche</div>
+      </a>
+      <a class="doc-link" href="git-github.html">
+        <span class="dl-num">Teil 3</span>
+        <div class="dl-title">GitHub verbinden – dein Projekt in der Cloud</div>
+      </a>
+      <a class="doc-link" href="git-branches.html">
+        <span class="dl-num">Teil 4</span>
+        <div class="dl-title">Branches & Merge – parallel arbeiten ohne Angst</div>
+      </a>
+    </div>
+
+    <p class="docs-note">Mehr Dokumente folgen wenn Claude Code + Figma MCP dazukommen.</p>
+  </section>
+
+</main>
+
+<footer>
+  <p>Der Ziel-Workflow · Claude + MCP + GitHub + Figma</p>
+  <p>Lernprojekt – erarbeitet mit Claude (Anthropic)</p>
+</footer>
+
+</body>
+</html>
