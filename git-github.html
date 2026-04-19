@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GitHub verbinden – für Designer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1a18;
+      --paper: #f5f0e8;
+      --accent: #2c5f8a;
+      --accent-light: #4a9fd4;
+      --warm: #c94f2c;
+      --muted: #7a7468;
+      --code-bg: #0d1117;
+      --code-fg: #e8c87a;
+      --line: rgba(26,26,24,0.12);
+      --green: #4a7c59;
+      --paper-muted: rgba(245,240,232,0.6);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 300;
+      line-height: 1.75;
+      font-size: 18px;
+    }
+
+    /* HEADER – warmes Papier mit blauem Akzent */
+    header {
+      padding: 80px 40px 60px;
+      max-width: 860px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .back-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 40px;
+      transition: opacity 0.2s;
+    }
+
+    .back-link:hover { opacity: 0.6; }
+
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+
+    h1 em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--accent);
+    }
+
+    .intro {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.8;
+    }
+
+    /* NAV */
+    nav {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 32px 40px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--accent); }
+
+    /* MAIN */
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 40px 120px;
+    }
+
+    section {
+      padding: 72px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    section:last-child { border-bottom: none; }
+
+    .section-number {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 32px;
+      letter-spacing: -0.01em;
+    }
+
+    h2 em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--accent);
+    }
+
+    p { margin-bottom: 20px; color: #2a2a26; }
+    p:last-child { margin-bottom: 0; }
+    strong { font-weight: 600; color: var(--ink); }
+
+    /* CODE */
+    .code-block {
+      background: var(--code-bg);
+      color: var(--code-fg);
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+      padding: 28px 32px;
+      margin: 32px 0;
+      line-height: 2;
+      overflow-x: auto;
+      border-left: 2px solid var(--accent);
+    }
+
+    .code-block .prompt { color: rgba(245,240,232,0.2); }
+    .code-block .command { color: #e8c87a; }
+    .code-block .output { color: #8ab8a8; }
+    .code-block .comment { color: #444c56; font-style: italic; }
+    .code-block .highlight { color: #4a9fd4; }
+    .code-block .success { color: #4a7c59; }
+    .code-block .error { color: #e05c5c; }
+
+    /* HIGHLIGHT BOX */
+    .highlight-box {
+      border-left: 3px solid var(--accent);
+      padding: 24px 32px;
+      margin: 32px 0;
+      background: rgba(44, 95, 138, 0.04);
+    }
+
+    .highlight-box.warning {
+      border-left-color: var(--warm);
+      background: rgba(201, 79, 44, 0.04);
+    }
+
+    .highlight-box .box-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .highlight-box.warning .box-label { color: var(--warm); }
+    .highlight-box p { margin-bottom: 0; }
+
+    /* ANALOGY */
+    .analogy {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 40px 48px;
+      margin: 40px 0;
+      position: relative;
+    }
+
+    .analogy::before {
+      content: '"';
+      font-family: 'Fraunces', serif;
+      font-size: 120px;
+      font-style: italic;
+      color: var(--accent-light);
+      position: absolute;
+      top: -20px;
+      left: 32px;
+      line-height: 1;
+      opacity: 0.3;
+    }
+
+    .analogy p {
+      color: var(--paper);
+      font-size: 1.1rem;
+      font-style: italic;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 0;
+    }
+
+    .analogy .analogy-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 16px;
+      font-style: normal;
+      display: block;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* FLOW DIAGRAM */
+    .flow-diagram {
+      margin: 48px 0;
+      position: relative;
+    }
+
+    .flow-row {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 2px;
+    }
+
+    .flow-box {
+      flex: 1;
+      padding: 20px 24px;
+      text-align: center;
+    }
+
+    .flow-box.local {
+      background: #f0ebe0;
+      border: 2px solid rgba(26,26,24,0.15);
+    }
+
+    .flow-box.cloud {
+      background: #e0ebf5;
+      border: 2px solid var(--accent);
+    }
+
+    .flow-box .fb-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .flow-box.cloud .fb-label { color: var(--accent); }
+
+    .flow-box .fb-title {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .flow-box .fb-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .flow-middle {
+      padding: 0 16px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .flow-middle .fm-cmd {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--warm);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .flow-middle .fm-arrow {
+      font-size: 20px;
+      color: var(--muted);
+    }
+
+    /* STEP LIST */
+    .step-list {
+      margin: 40px 0;
+      counter-reset: steps;
+    }
+
+    .step-item {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 0;
+      margin-bottom: 2px;
+    }
+
+    .step-num {
+      background: var(--accent);
+      color: white;
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 500;
+    }
+
+    .step-content {
+      background: rgba(44, 95, 138, 0.04);
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .step-content strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.95rem;
+    }
+
+    .step-content span {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .step-content code {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      background: rgba(44, 95, 138, 0.08);
+      padding: 2px 6px;
+    }
+
+    /* TOKEN WARNING */
+    .token-box {
+      background: #fff8f0;
+      border: 2px solid var(--warm);
+      padding: 32px 40px;
+      margin: 40px 0;
+    }
+
+    .token-box .token-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--warm);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .token-box p { color: var(--ink); }
+
+    /* SUCCESS BOX */
+    .success-box {
+      background: #f0f7f3;
+      border: 2px solid var(--green);
+      padding: 40px 48px;
+      margin: 48px 0;
+      text-align: center;
+    }
+
+    .success-box .success-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .success-box h3 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--green);
+    }
+
+    .success-box p {
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* DAILY WORKFLOW */
+    .daily-workflow {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin: 40px 0;
+      flex-wrap: wrap;
+    }
+
+    .dw-step {
+      flex: 1;
+      min-width: 120px;
+      padding: 24px 16px;
+      text-align: center;
+      background: var(--code-bg);
+      margin-right: 2px;
+    }
+
+    .dw-step:last-child { margin-right: 0; }
+
+    .dw-step .dw-cmd {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--code-fg);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .dw-step .dw-desc {
+      font-size: 0.75rem;
+      color: rgba(245,240,232,0.4);
+    }
+
+    /* PROGRESS */
+    .progress {
+      margin: 48px 0;
+    }
+
+    .progress-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .progress-items {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .progress-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+    }
+
+    .progress-item.done { background: #f0f7f3; }
+    .progress-item.next { background: rgba(44, 95, 138, 0.06); border-left: 3px solid var(--accent); }
+    .progress-item.future { background: rgba(26,26,24,0.03); }
+
+    .progress-item .pi-icon {
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+      width: 24px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .progress-item.done .pi-icon { color: var(--green); }
+    .progress-item.next .pi-icon { color: var(--accent); }
+    .progress-item.future .pi-icon { color: rgba(26,26,24,0.2); }
+
+    .progress-item .pi-text { font-size: 0.95rem; }
+    .progress-item.done .pi-text { color: var(--ink); }
+    .progress-item.future .pi-text { color: rgba(26,26,24,0.3); }
+
+    .progress-item .pi-sub {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      margin-left: auto;
+      letter-spacing: 0.05em;
+    }
+
+    /* NEXT DOC LINK */
+    .next-doc {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 56px 48px;
+      margin: 48px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .next-doc .nd-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .next-doc h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--paper);
+    }
+
+    .next-doc a {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--paper);
+      text-decoration: none;
+      padding: 14px 32px;
+      display: inline-block;
+      white-space: nowrap;
+      transition: opacity 0.2s;
+      flex-shrink: 0;
+    }
+
+    .next-doc a:hover { opacity: 0.8; }
+
+    /* FOOTER */
+    footer {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 48px 40px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    footer p {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    footer a {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    @media (max-width: 600px) {
+      header, nav, main { padding-left: 24px; padding-right: 24px; }
+      .flow-row { flex-direction: column; }
+      .daily-workflow { flex-direction: column; }
+      .dw-step { width: 100%; }
+      .next-doc { padding: 32px 24px; }
+      .analogy { padding: 32px 28px; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    section { animation: fadeUp 0.5s ease both; }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="back-link" href="git-vscode.html">← Zurück zu Teil 2: Git + VS Code</a>
+  <span class="tag">GitHub verbinden · Teil 3</span>
+  <h1>Dein Projekt<br><em>lebt in der Cloud</em></h1>
+  <p class="intro">Du hast Git lokal gemeistert. Jetzt hast du dein erstes Repository auf GitHub – das Fundament für alles was mit Claude, MCP und Figma folgt.</p>
+</header>
+
+<nav>
+  <a href="#was-ist-github">Git vs. GitHub</a>
+  <a href="#repository">Repository erstellen</a>
+  <a href="#token">Personal Access Token</a>
+  <a href="#push">git push</a>
+  <a href="#kreislauf">Der Kreislauf</a>
+  <a href="#naechstes">Was kommt</a>
+</nav>
+
+<main>
+
+  <!-- SEKTION 1 -->
+  <section id="was-ist-github">
+    <span class="section-number">01 / Konzept</span>
+    <h2>Git vs. GitHub –<br><em>der wichtigste Unterschied</em></h2>
+
+    <p>Das ist eine Verwechslung die fast jeder am Anfang macht. Die beiden Namen klingen ähnlich, sind aber grundlegend verschieden:</p>
+
+    <div class="flow-diagram">
+      <div class="flow-row">
+        <div class="flow-box local">
+          <span class="fb-label">Auf deinem Mac</span>
+          <div class="fb-title">Git</div>
+          <div class="fb-desc">Das Versionskontrollsystem. Läuft lokal, braucht kein Internet.</div>
+        </div>
+        <div class="flow-middle">
+          <span class="fm-cmd">git push</span>
+          <div class="fm-arrow">⟶</div>
+        </div>
+        <div class="flow-box cloud">
+          <span class="fb-label">In der Cloud</span>
+          <div class="fb-title">GitHub</div>
+          <div class="fb-desc">Die Plattform. Speichert dein Projekt online, zugänglich überall.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="analogy">
+      <p class="analogy-label">Analogy</p>
+      <p>Git ist dein Notizbuch auf dem Schreibtisch – du schreibst darin, es bleibt bei dir. GitHub ist die Bibliothek, wo du eine Kopie einreichst. Andere können es einsehen, du kannst es von überall abrufen.</p>
+    </div>
+
+    <p>Für deinen späteren Workflow mit <strong>Claude + MCP</strong> ist GitHub entscheidend: Claude kann direkt auf dein Repository zugreifen, Änderungen lesen, committen und pushen – alles automatisch.</p>
+  </section>
+
+  <!-- SEKTION 2 -->
+  <section id="repository">
+    <span class="section-number">02 / Schritt</span>
+    <h2>Ein neues Repository<br><em>auf GitHub erstellen</em></h2>
+
+    <p>Ein <strong>Repository</strong> (kurz: Repo) ist der Container für dein Projekt auf GitHub – mit allen Dateien, der gesamten Historie, und den Einstellungen.</p>
+
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong>github.com → "+" → New repository</strong>
+          <span>Oben rechts auf dein Profilbild oder das Plus-Symbol klicken</span>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong>Repository Name vergeben</strong>
+          <span>Gleicher Name wie dein lokaler Ordner ist empfehlenswert – z.B. <code>pian-one</code></span>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong>Visibility: Public lassen</strong>
+          <span>Für Lernprojekte ist Public in Ordnung. Private Repos gibt es auch – für sensible Projekte.</span>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <strong>README, .gitignore, License: ALLE auf Off/No lassen</strong>
+          <span>Du hast das alles bereits lokal. Wenn GitHub ebenfalls Dateien erstellt, gibt es einen Konflikt beim ersten Push.</span>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <strong>Create repository</strong>
+          <span>GitHub erstellt ein leeres Repo und zeigt dir die Befehle zum Verbinden</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box warning">
+      <span class="box-label">Häufiger Fehler</span>
+      <p>README beim Erstellen aktivieren obwohl du schon eine lokal hast. Das erzeugt einen Konflikt – GitHub und dein Mac haben dann unterschiedliche Historien und der erste Push schlägt fehl.</p>
+    </div>
+  </section>
+
+  <!-- SEKTION 3 -->
+  <section id="token">
+    <span class="section-number">03 / Sicherheit</span>
+    <h2>Personal Access Token –<br><em>das Terminal-Passwort</em></h2>
+
+    <p>GitHub akzeptiert dein normales Passwort nicht im Terminal. Stattdessen brauchst du einen <strong>Personal Access Token</strong> – ein speziell generiertes Passwort nur für den Terminal-Zugang.</p>
+
+    <div class="token-box">
+      <span class="token-label">Warum das so ist</span>
+      <p>Dein normales GitHub-Passwort schützt deinen ganzen Account. Ein Token hat begrenzte Rechte, eine Ablaufzeit, und kann jederzeit widerrufen werden – ohne dein Hauptpasswort zu ändern. Das ist sicherer.</p>
+    </div>
+
+    <p>Token erstellen:</p>
+
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong>github.com → Profilbild → Settings</strong>
+          <span>Ganz unten im Menü</span>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong>Developer settings → Personal access tokens → Tokens (classic)</strong>
+          <span>Ganz unten in der linken Seitenleiste</span>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong>Generate new token (classic)</strong>
+          <span>Note: <code>terminal-mac</code> · Expiration: 90 days · Scope: <code>repo</code> anklicken</span>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <strong>Token sofort kopieren!</strong>
+          <span>Er wird nur einmal angezeigt. Speichere ihn in einem Passwort-Manager oder einer sicheren Notiz.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <span class="box-label">Token sicher aufbewahren</span>
+      <p>Behandle den Token wie ein Passwort. Teile ihn nie, commit ihn nie in eine Datei, poste ihn nie online. Wenn er verloren geht – einfach einen neuen erstellen und den alten widerrufen.</p>
+    </div>
+  </section>
+
+  <!-- SEKTION 4 -->
+  <section id="push">
+    <span class="section-number">04 / Befehle</span>
+    <h2>Die drei Befehle –<br><em>lokal mit GitHub verbinden</em></h2>
+
+    <p>Diese drei Befehle führst du <strong>einmalig</strong> pro Projekt aus – danach ist die Verbindung dauerhaft gespeichert:</p>
+
+    <div class="code-block">
+      <span class="comment"># 1. GitHub als Ziel registrieren ("origin" = Spitzname für GitHub)</span><br>
+      <span class="prompt">% </span><span class="command">git remote add origin https://github.com/IskayMorou/pian-one.git</span><br><br>
+      <span class="comment"># 2. Branch "main" nennen (zur Sicherheit)</span><br>
+      <span class="prompt">% </span><span class="command">git branch -M main</span><br><br>
+      <span class="comment"># 3. Hochladen – erstes Mal mit "-u" um Verbindung zu setzen</span><br>
+      <span class="prompt">% </span><span class="command">git push -u origin main</span>
+    </div>
+
+    <p>Was bedeutet <code style="font-family:'DM Mono',monospace;color:var(--accent);font-size:0.9em">origin</code>? Das ist nur ein <strong>Spitzname</strong> für die GitHub-URL. Du könntest es auch "github" nennen – aber "origin" ist die universelle Konvention.</p>
+
+    <p>Was bedeutet <code style="font-family:'DM Mono',monospace;color:var(--accent);font-size:0.9em">-u</code>? Es setzt die Verbindung dauerhaft. Ab dem zweiten Mal reicht einfach <code style="font-family:'DM Mono',monospace;color:var(--accent);font-size:0.9em">git push</code> – ohne alles andere.</p>
+
+    <div class="code-block">
+      <span class="comment"># Was GitHub antwortet wenn es klappt:</span><br>
+      <span class="output">Enumerating objects: 6, done.</span><br>
+      <span class="output">Counting objects: 100% (6/6), done.</span><br>
+      <span class="output">Writing objects: 100% (6/6), 459 bytes | 459.00 KiB/s, done.</span><br>
+      <span class="success">* [new branch]      main -> main</span><br>
+      <span class="success">branch 'main' set up to track 'origin/main'.</span>
+    </div>
+
+    <div class="success-box">
+      <span class="success-icon">🎉</span>
+      <h3>Das hast du erreicht</h3>
+      <p>Dein lokales Projekt ist jetzt auf GitHub. Jeder Commit den du ab jetzt machst, kann mit einem einzigen <code style="font-family:'DM Mono',monospace;font-size:0.9em">git push</code> hochgeladen werden.</p>
+    </div>
+  </section>
+
+  <!-- SEKTION 5 -->
+  <section id="kreislauf">
+    <span class="section-number">05 / Workflow</span>
+    <h2>Der tägliche Kreislauf –<br><em>wie du ab jetzt arbeitest</em></h2>
+
+    <p>Das ist der Rhythmus den du von jetzt an immer wiederholen wirst – bei jedem Projekt, jeden Tag:</p>
+
+    <div class="daily-workflow">
+      <div class="dw-step">
+        <span class="dw-cmd">Änderung</span>
+        <span class="dw-desc">Datei bearbeiten in VS Code</span>
+      </div>
+      <div class="dw-step">
+        <span class="dw-cmd">git add .</span>
+        <span class="dw-desc">Alle Änderungen stagen</span>
+      </div>
+      <div class="dw-step">
+        <span class="dw-cmd">git commit -m</span>
+        <span class="dw-desc">Moment festhalten</span>
+      </div>
+      <div class="dw-step">
+        <span class="dw-cmd">git push</span>
+        <span class="dw-desc">Zu GitHub hochladen</span>
+      </div>
+    </div>
+
+    <p>Ab dem zweiten Push reicht wirklich nur noch <code style="font-family:'DM Mono',monospace;color:var(--accent);font-size:0.9em">git push</code> – Git weiß bereits wohin.</p>
+
+    <div class="highlight-box">
+      <span class="box-label">Relevanz für Claude + MCP + Figma</span>
+      <p>Wenn Claude später über MCP auf dein GitHub-Repository zugreift, sieht es genau diese Commits – mit deinen Nachrichten, Zeitstempeln und Änderungen. Claude kann dann selbst committen und pushen, als wäre es ein Mitarbeiter in deinem Team.</p>
+    </div>
+  </section>
+
+  <!-- SEKTION 6 -->
+  <section id="naechstes">
+    <span class="section-number">06 / Ausblick</span>
+    <h2>Wo du jetzt stehst –<br><em>und was folgt</em></h2>
+
+    <div class="progress">
+      <span class="progress-label">Dein Lernweg</span>
+      <div class="progress-items">
+        <div class="progress-item done">
+          <span class="pi-icon">✓</span>
+          <span class="pi-text">Git installiert & konfiguriert</span>
+          <span class="pi-sub">Teil 1</span>
+        </div>
+        <div class="progress-item done">
+          <span class="pi-icon">✓</span>
+          <span class="pi-text">Erstes Repository lokal erstellt</span>
+          <span class="pi-sub">Teil 1</span>
+        </div>
+        <div class="progress-item done">
+          <span class="pi-icon">✓</span>
+          <span class="pi-text">Commits gemacht & Historie gelesen</span>
+          <span class="pi-sub">Teil 1 + 2</span>
+        </div>
+        <div class="progress-item done">
+          <span class="pi-icon">✓</span>
+          <span class="pi-text">VS Code als visuelle Git-Oberfläche</span>
+          <span class="pi-sub">Teil 2</span>
+        </div>
+        <div class="progress-item done">
+          <span class="pi-icon">✓</span>
+          <span class="pi-text">GitHub Repository erstellt & verbunden</span>
+          <span class="pi-sub">Teil 3</span>
+        </div>
+        <div class="progress-item done">
+          <span class="pi-icon">✓</span>
+          <span class="pi-text">Erstes git push erfolgreich</span>
+          <span class="pi-sub">Teil 3</span>
+        </div>
+        <div class="progress-item next">
+          <span class="pi-icon">→</span>
+          <span class="pi-text">Branches – parallel arbeiten</span>
+          <span class="pi-sub">Teil 4</span>
+        </div>
+        <div class="progress-item future">
+          <span class="pi-icon">○</span>
+          <span class="pi-text">Claude MCP mit GitHub verbinden</span>
+          <span class="pi-sub">kommt</span>
+        </div>
+        <div class="progress-item future">
+          <span class="pi-icon">○</span>
+          <span class="pi-text">Figma + Claude + GitHub Workflow</span>
+          <span class="pi-sub">kommt</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="next-doc">
+      <div>
+        <span class="nd-label">Teil 4 kommt als nächstes</span>
+        <h3>Branches –<br>parallel arbeiten ohne Angst</h3>
+      </div>
+      <a href="git-branches.html">→ Teil 4</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>GitHub verbinden · Teil 3 von ?</p>
+  <a href="git-vscode.html">← Teil 2: Git + VS Code</a>
+</footer>
+
+</body>
+</html>
