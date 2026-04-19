@@ -1286,6 +1286,126 @@ footer a {
   .step-body { padding: 20px 16px; }
 }
 
+/* CODE BLOCK BRANCH COLORS */
+.code-block .main       { color: var(--stage-color); }
+.code-block .experiment { color: var(--claude); }
+
+/* HIGHLIGHT BOX BLUE VARIANT */
+.highlight-box.blue {
+  border-left-color: var(--commit-color);
+  background: rgba(44, 95, 138, 0.06);
+}
+
+.highlight-box.blue .box-label { color: var(--commit-color); }
+
+/* BRANCH DIAGRAM */
+.branch-diagram {
+  margin: 48px 0;
+  padding: 40px;
+  background: var(--code-bg);
+  overflow-x: auto;
+}
+
+.branch-track { display: flex; flex-direction: column; gap: 24px; }
+
+.branch-row { display: flex; align-items: center; gap: 0; }
+
+.branch-label {
+  font-family: var(--font);
+  font-variation-settings: var(--fv-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  width: 100px;
+  flex-shrink: 0;
+}
+
+.branch-label.main       { color: var(--stage-color); }
+.branch-label.experiment { color: var(--claude); }
+
+.branch-line { display: flex; align-items: center; gap: 0; flex: 1; }
+
+.commit-wrap { display: flex; flex-direction: column; align-items: center; }
+
+.commit-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.commit-dot.main       { background: var(--stage-color); }
+.commit-dot.experiment { background: var(--claude); }
+.commit-dot.merge      { background: var(--ink); }
+
+.commit-label {
+  font-family: var(--font);
+  font-variation-settings: var(--fv-mono);
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 6px;
+  text-align: center;
+}
+
+.branch-connector { height: 2px; flex: 1; }
+.branch-connector.main       { background: var(--stage-color); }
+.branch-connector.experiment { background: var(--claude); }
+.branch-connector.empty      { background: transparent; }
+.branch-connector.spacer     { width: 120px; flex: none; background: transparent; }
+.branch-connector.fork       { width: 20px; flex: none; background: var(--claude); }
+.branch-connector.dashed {
+  background: repeating-linear-gradient(
+    90deg,
+    var(--muted) 0px, var(--muted) 4px,
+    transparent 4px, transparent 8px
+  );
+  opacity: 0.3;
+}
+
+/* VIM BOX */
+.vim-box {
+  background: #1a1a00;
+  border: 2px solid var(--code-fg);
+  padding: 32px 40px;
+  margin: 40px 0;
+}
+
+.vim-box .vim-label {
+  font-family: var(--font);
+  font-variation-settings: var(--fv-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--code-fg);
+  margin-bottom: 16px;
+  display: block;
+}
+
+.vim-box p { color: var(--ink); }
+
+.vim-escape {
+  display: inline-block;
+  background: rgba(171, 123, 0, 0.1);
+  border: 1px solid var(--code-fg);
+  font-family: var(--font);
+  font-variation-settings: var(--fv-mono);
+  font-size: 12px;
+  color: var(--code-fg);
+  padding: 4px 10px;
+  margin: 0 4px;
+}
+
+.vim-note {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .vim-box { padding: 24px 20px; }
+}
+
 /* ANIMATIONS */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(20px); }
