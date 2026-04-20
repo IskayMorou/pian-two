@@ -11,6 +11,9 @@
   --stage-color: #4a7c59;
   --commit-color: #2c5f8a;
   --font: 'Recursive', sans-serif;
+
+  --sftfont: -apple-system, BlinkMacSystemFont, 'avenir next', avenir, 'segoe ui', 'helvetica neue', 'Adwaita Sans', Cantarell, Ubuntu, roboto, noto, helvetica, arial, sans-serif;
+
   --fv-prop: 'MONO' 0, 'CASL' 0, 'slnt' 0;
   --fv-mono: 'MONO' 1, 'CASL' 0, 'slnt' 0;
   --fv-oblique: 'MONO' 0, 'CASL' 0, 'slnt' -15;
@@ -146,7 +149,7 @@ h2 em {
 p {
   margin-bottom: 20px;
   color: #424242;
-  font-family: -apple-system, BlinkMacSystemFont, 'avenir next', avenir, 'segoe ui', 'helvetica neue', 'Adwaita Sans', Cantarell, Ubuntu, roboto, noto, helvetica, arial, sans-serif;
+  font-family: var(--sftfont);
   line-height: var(--leading-relaxed);
   font-weight: 400;
   font-size: 1rem;
@@ -802,13 +805,15 @@ footer a { color: var(--accent); }
 
 .dw-step .dw-cmd {
   font-variation-settings: var(--fv-mono);
-  font-size: 12px;
-  color: var(--code-fg);
+  font-size: 14px;
+  color: var(--ink);
   display: block;
   margin-bottom: 6px;
 }
 
-.dw-step .dw-desc { font-size: 0.75rem; color: var(--muted); }
+.dw-step .dw-desc { font-size: 14px; color: var(--muted); 
+
+}
 
 /* PROGRESS */
 .progress { margin: 48px 0; }
@@ -956,7 +961,7 @@ footer a { color: var(--accent); }
 
 .step-tool {
   font-variation-settings: var(--fv-mono);
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   margin-bottom: 8px;
@@ -970,13 +975,21 @@ footer a { color: var(--accent); }
 .step-tool.you    { color: var(--ink); }
 
 .step-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 8px; color: var(--ink); }
-.step-desc  { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+.step-desc  { 
+  font-size: 1rem; 
+  font-family: var(--sftfont);
+  color: var(--muted); line-height: 1.6; 
+
+}
 
 .step-code {
   font-variation-settings: var(--fv-mono);
-  font-size: 12px;
-  background: var(--ink);
-  color: var(--code-fg);
+  font-size: 14px;
+
+
+    color: var(--ink) ;
+    background: rgba(0, 128, 220, 0.08);
+
   padding: 12px 16px;
   margin-top: 12px;
   display: inline-block;
@@ -1108,23 +1121,26 @@ footer a { color: var(--accent); }
   margin-bottom: 2px;
 }
 
-.flow-box { flex: 1; padding: 20px 24px; text-align: center; }
+.flow-box { flex: 1; 
+  padding: 24px 16px; text-align: center;
+
+}
 .flow-box.local { background: #f3f4f6;  }
 .flow-box.cloud { background: #f3f4f6;}
 
 .flow-box .fb-label {
   font-variation-settings: var(--fv-mono);
-  font-size:12px;
-  letter-spacing: 0.2em;
+  font-size:14px;
+
   text-transform: uppercase;
-  color: var(--commit-color);
+ 
   margin-bottom: 6px;
   display: block;
 }
 
-.flow-box.cloud .fb-label { color: var(--commit-color); }
+
 .flow-box .fb-title { font-size: 1rem; font-weight: 600; }
-.flow-box .fb-desc  { font-size: 0.875rem; color: var(--ink); margin-top: 4px; }
+.flow-box .fb-desc  { font-size: 1rem; color: var(--ink); margin-top: 4px; }
 
 .flow-middle { padding: 0 16px; text-align: center; flex-shrink: 0; }
 
