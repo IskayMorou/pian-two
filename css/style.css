@@ -4,7 +4,7 @@
   --ink: #11171F;
   --paper: #fcfcfc;
   --accent: #0080dc;
-  --muted: #7a7468;
+  --muted: #7e0095;
   --code-bg: #f3f6ec;
   --code-fg: #ab7b00;
   --line: rgba(26,26,24,0.15);
@@ -37,23 +37,24 @@ header {
   padding: 80px 40px 60px;
   max-width: 860px;
   margin: 0 auto;
-  border-bottom: 1px solid var(--line);
+
 }
 
 .tag {
   font-variation-settings: var(--fv-mono);
-  font-size: 11px;
-  letter-spacing: 0.2em;
+  font-size: 14px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: #2f2f30;
   margin-bottom: 24px;
   display: block;
+  
 }
 
 h1 {
   font-size: clamp(2.4rem, 6vw, 4rem);
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1;
   letter-spacing: -0.02em;
   margin-bottom: 24px;
 }
@@ -77,9 +78,8 @@ nav {
   max-width: 860px;
   margin: 0 auto;
   padding: 32px 40px;
-  border-bottom: 1px solid var(--line);
   display: flex;
-  gap: 32px;
+  gap: 16px;
   flex-wrap: wrap;
 }
 
@@ -90,10 +90,16 @@ nav a {
   text-transform: uppercase;
   color: var(--muted);
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
+  font-weight: 400;
+  padding: 0 12px 0 0;
 }
 
-nav a:hover { color: var(--accent); }
+nav a:hover { 
+  color: rgb(128, 130, 128);
+  background-color: #f0fc6a;
+
+}
 
 /* MAIN CONTENT */
 main {
@@ -403,10 +409,10 @@ footer a { color: var(--accent); }
 /* BACK LINK */
 .back-link {
   font-variation-settings: var(--fv-mono);
-  font-size: 11px;
-  letter-spacing: 0.2em;
+  font-size: 14px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: #2f2f30;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -1251,6 +1257,67 @@ footer a { color: var(--accent); }
 
 .vim-note { color: var(--muted); font-size: 0.85rem; }
 
+/* VOCAB TABLE */
+.vocab-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.vocab-row {
+  display: grid;
+  grid-template-columns: 9rem 1fr 1.6fr;
+  align-items: baseline;
+  gap: 0 24px;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.vocab-row:last-child { border-bottom: none; }
+
+.vocab-row.vocab-separator {
+  background: var(--code-bg);
+  grid-template-columns: 1fr;
+  padding: 8px 24px;
+}
+
+.vocab-row.vocab-separator .vocab-cmd {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-variation-settings: var(--fv-mono);
+  background: none;
+  padding: 0;
+}
+
+.vocab-cmd {
+  font-variation-settings: var(--fv-mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  background: rgba(0,128,220,0.06);
+  padding: 3px 8px;
+  border-radius: 5px;
+  white-space: nowrap;
+  justify-self: start;
+}
+
+.vocab-action {
+  font-variation-settings: var(--fv-prop);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+
+.vocab-desc {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
 /* RESPONSIVE */
 @media (max-width: 640px) {
   header, nav, main      { padding-left: 24px; padding-right: 24px; }
@@ -1271,6 +1338,8 @@ footer a { color: var(--accent); }
   .tool-cards, .role-box, .docs-nav { grid-template-columns: 1fr; }
   .step-body             { padding: 20px 16px; }
   .vim-box               { padding: 24px 20px; }
+  .vocab-row             { grid-template-columns: 1fr; gap: 4px; }
+  .vocab-desc            { padding-bottom: 4px; }
 }
 
 /* ANIMATIONS */
