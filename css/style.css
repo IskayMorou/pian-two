@@ -111,7 +111,9 @@ main {
 /* SECTION */
 section {
   padding: 72px 0;
-  border-bottom: 1px solid var(--line);
+   max-width: calc(var(--spacing) * 223);
+   margin : 0 auto;
+
 }
 
 section:last-child { border-bottom: none; }
@@ -263,9 +265,9 @@ code {
   text-align: center;
 }
 
-.flow-step.untracked { background: #f0ebe0; border: 2px solid var(--line); }
-.flow-step.staged    { background: #e8f0eb; border: 2px solid var(--stage-color); }
-.flow-step.committed { background: #e0ebf5; border: 2px solid var(--commit-color); }
+.flow-step.untracked { background: #f3f4f6}
+.flow-step.staged    { background: #e8f0eb; }
+.flow-step.committed { background: #e0ebf5; }
 
 .flow-step .step-label {
   font-variation-settings: var(--fv-mono);
@@ -342,9 +344,8 @@ code {
 
 /* VISION BOX */
 .vision {
-  background: linear-gradient(135deg, #1a1a18 0%, #2a2a20 100%);
   color: var(--paper);
-  padding: 56px 48px;
+  padding: 56px 24px;
   margin: 48px 0;
 }
 
@@ -352,10 +353,10 @@ code {
   font-size: 1.4rem;
   font-weight: 700;
   margin-bottom: 20px;
-  color: var(--code-fg);
+  color: var(--ink);
 }
 
-.vision p { color: #c8c3b8; line-height: 1.8; }
+.vision p { color: var(--ink); line-height: 1.8; }
 
 .vision .vision-flow {
   display: flex;
@@ -367,15 +368,19 @@ code {
 
 .vision-tag {
   font-variation-settings: var(--fv-mono);
-  font-size: 11px;
+  font-size: 12px;
   padding: 8px 16px;
   letter-spacing: 0.1em;
+  font-weight: 700;
 }
 
-.vision-tag.v1 { background: var(--accent);       color: white; }
-.vision-tag.v2 { background: var(--stage-color);  color: white; }
-.vision-tag.v3 { background: var(--commit-color); color: white; }
-.vision-tag.v4 { border: 1px solid var(--code-fg); color: var(--code-fg); }
+.vision-tag.v1 { background: #f3f4f6;
+        color: var(--ink)}
+.vision-tag.v2 { background: #f3f4f6; 
+  
+  color: var(--ink); }
+.vision-tag.v3 { background: #f3f4f6; color: var(--ink); }
+.vision-tag.v4 { background: #f3f4f6; color: var(--ink); }
 
 .vision-sep {
   color: var(--muted);
@@ -1257,13 +1262,20 @@ footer a { color: var(--accent); }
 
 .vim-note { color: var(--muted); font-size: 0.85rem; }
 
+
+
 /* VOCAB TABLE */
+
+#vokabular{
+   max-width: calc(var(--spacing) * 223);
+   margin: 0 auto;
+}
+
+
 .vocab-table {
   display: flex;
   flex-direction: column;
   gap: 0;
-  border: 1px solid var(--line);
-  border-radius: 12px;
   overflow: hidden;
 }
 
@@ -1272,14 +1284,13 @@ footer a { color: var(--accent); }
   grid-template-columns: 9rem 1fr 1.6fr;
   align-items: baseline;
   gap: 0 24px;
-  padding: 14px 24px;
-  border-bottom: 1px solid var(--line);
+  padding: 8px 24px;
 }
 
 .vocab-row:last-child { border-bottom: none; }
 
 .vocab-row.vocab-separator {
-  background: var(--code-bg);
+  background: #f0f5fa;
   grid-template-columns: 1fr;
   padding: 8px 24px;
 }
